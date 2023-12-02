@@ -101,10 +101,7 @@ Configuration details to be added.
 
 Feel free to contribute by submitting issues or pull requests.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
 ## Acknowledgments
 
-- Special thanks to [Data Science University](https://www.datascienceu.org/) for inspiration.
+- Thank you to **Lambton College** for providing me with the D2L data.
+- Special thanks to **Sebastien Lozano-Forero** for curating the data used to train and test the models, and for offering valuable insight and guidance while working through this project.
