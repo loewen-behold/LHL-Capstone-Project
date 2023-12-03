@@ -18,7 +18,6 @@ This project focuses on predicting student academic trajectories based on LMS be
   - [API](#api)
   - [Configuration](#configuration)
   - [Contributing](#contributing)
-  - [License](#license)
   - [Acknowledgments](#acknowledgments)
 
 ## About

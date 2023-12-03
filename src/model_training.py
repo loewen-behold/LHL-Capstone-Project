@@ -4,8 +4,8 @@ MODEL-TRAINING
 
 # model_training.py
 
+import joblib
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import FunctionTransformer
@@ -32,11 +32,11 @@ def build_preprocessor(numeric_features, categorical_features):
         ])
     return preprocessor
 
-def build_model():
-    return RandomForestClassifier()
-
 def build_full_pipeline(preprocessor, model):
     return Pipeline([
         ('preprocessor', preprocessor),
         ('model', model)
     ])
+
+def save_model(model, file_path='models/trained_model.pkl'):
+    joblib.dump(model, file_path)

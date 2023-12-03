@@ -14,10 +14,16 @@ def add_eng_values(X):
     X['completion_ratio'] = X['content_completed']/X['content_required']
     X['logins_per_course'] = X['number_of_logins_to_the_system']/X['total_course_count']
     X['avg_time_per_login'] = X['total_time_spent_in_content']/X['logins_per_course']
+    X['avg_time_by_completed_content'] = X['total_time_spent_in_content']/X['content_completed']
     
     X['completion_ratio'].fillna(0, inplace=True)
     X['avg_time_per_login'].fillna(0, inplace=True)
     X['course_count_by_term'].fillna(0, inplace=True)
+    # Replace infinite values with NaN
+    X['avg_time_by_completed_content'].replace([np.inf, -np.inf], np.nan, inplace=True)
+
+    # Set values to zero where there is NaN (originally infinite)
+    X['avg_time_by_completed_content'].fillna(0, inplace=True)
     
     return X
 
