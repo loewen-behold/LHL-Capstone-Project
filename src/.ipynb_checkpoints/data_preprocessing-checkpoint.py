@@ -47,9 +47,14 @@ def df_construct(df_d2l, df_demo, df_grades):
     df_d2l.sort_values(by='content_completed', ascending=False, inplace=True)
     df_d2l.drop_duplicates(subset=['pseudo_id', 'pseudo_course', 'term'], keep='first', inplace=True)
     
-    # Drop all date columns
-    df_d2l.drop(columns=['last_discussion_post_date', 'last_assignment_submission_date', 'last_system_login',
-                         'last_quiz_attempt_date', 'last_visited_date'], axis=1, inplace=True)
+    # Drop date columns if they exist
+    date_columns_to_drop = ['last_discussion_post_date', 'last_assignment_submission_date',
+                             'last_system_login', 'last_quiz_attempt_date', 'last_visited_date']
+
+    # Drop all date columns that exist in the df
+    for column in date_columns_to_drop:
+        if column in df_d2l.columns:
+            df_d2l.drop(column, axis=1, inplace=True)
     
     # appending the "grade_value" column into the df_d2l dataframe (if there is no grade, a zero is input)
     df_d2l['grade_value'] = df_d2l.apply(lambda row: df_grades[
