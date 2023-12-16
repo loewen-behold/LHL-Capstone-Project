@@ -2,12 +2,12 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import numpy as np
 import joblib
-from data_preprocessing import add_eng_values, alter_term_gender
+from pre_predict_processing import add_eng_values_pre_predict, alter_term_gender_pre_predict
 
 app = Flask(__name__)
 
 # Load the saved model
-model = joblib.load('../models/voting_classifier_best_model.pkl')
+model = joblib.load('../models/voting_classifier_best_model2.pkl')
 
 # Define the preprocessing function
 def preprocess_data(data):
@@ -16,10 +16,10 @@ def preprocess_data(data):
     data.drop('pseudo_id', axis=1, inplace=True)
 
     # Add engineered values
-    data = add_eng_values(data)
+    data = add_eng_values_pre_predict(data)
 
     # Alter categorical columns
-    data = alter_term_gender(data)
+    data = alter_term_gender_pre_predict(data)
 
     return data
 
@@ -34,7 +34,7 @@ def predict():
         
         # Preprocess the data
         preprocessed_data = preprocess_data(input_df)
-
+        preprocessed_data.to_csv('../data/processed_data/df_preprediction_data.csv', index=False)
         # Make predictions using the loaded model
         prediction = model.predict(preprocessed_data)
 
