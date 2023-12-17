@@ -37,9 +37,11 @@ def predict():
         preprocessed_data.to_csv('../data/processed_data/df_preprediction_data.csv', index=False)
         # Make predictions using the loaded model
         prediction = model.predict(preprocessed_data)
-
-        # Return the prediction as JSON
-        return jsonify({'prediction': int(prediction[0])})
+        if prediction[0] == 0:
+            # Return the prediction as JSON
+            return jsonify({'prediction': 'Not At-Risk'})
+        else:
+            return jsonify({'prediction': 'At-Risk'})
 
     except Exception as e:
         return jsonify({'error': str(e)})
