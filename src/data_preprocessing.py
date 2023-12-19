@@ -15,15 +15,20 @@ def add_eng_values(X):
     X['logins_per_course'] = X['number_of_logins_to_the_system']/X['total_course_count']
     X['avg_time_per_login'] = X['total_time_spent_in_content']/X['logins_per_course']
     X['avg_time_by_completed_content'] = X['total_time_spent_in_content']/X['content_completed']
+    X['quiz_attempts_per_quiz'] = X['total_quiz_attempts']/X['quiz_completed']
     
     X['completion_ratio'].fillna(0, inplace=True)
     X['avg_time_per_login'].fillna(0, inplace=True)
     X['course_count_by_term'].fillna(0, inplace=True)
     # Replace infinite values with NaN
     X['avg_time_by_completed_content'].replace([np.inf, -np.inf], np.nan, inplace=True)
-
     # Set values to zero where there is NaN (originally infinite)
     X['avg_time_by_completed_content'].fillna(0, inplace=True)
+    
+    # Replace infinite values with NaN
+    X['quiz_attempts_per_quiz'].replace([np.inf, -np.inf], np.nan, inplace=True)
+    # Set values to zero where there is NaN (originally infinite)
+    X['quiz_attempts_per_quiz'].fillna(0, inplace=True)
     
     return X
 
@@ -100,5 +105,14 @@ def df_construct(df_d2l, df_demo, df_grades):
     
     # drop grade_value from df
     merged_df.drop('grade_value', axis=1, inplace=True)
+    
+    # Drop correlated columns 
+    correlated_columns_to_drop = ['discussion_post_created', 'discussion_post_replies', 'total_quiz_attempts',
+                             'content_completed', 'number_of_logins_to_the_system', 'quiz_completed']
+
+    # Drop all date columns that exist in the df
+    for column in correlated_columns_to_drop:
+        if column in merged_df.columns:
+            merged_df.drop(column, axis=1, inplace=True)
     
     return merged_df
