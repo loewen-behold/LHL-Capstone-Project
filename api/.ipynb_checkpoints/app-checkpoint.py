@@ -3,13 +3,13 @@ import pandas as pd
 import numpy as np
 import joblib
 import sys
-sys.path.append('/Users/jlo/Desktop/LHL/LHLProjects/LHL-Capstone-Project')
+sys.path.append("..")
 from src.pre_predict_processing import add_eng_values_pre_predict, alter_term_gender_pre_predict
 
 app = Flask(__name__)
 
 # Load the saved model
-model = joblib.load('models/voting_classifier_best_model.pkl')
+model = joblib.load('../models/voting_classifier_best_model.pkl')
 
 # Define the preprocessing function
 def preprocess_data(data):
