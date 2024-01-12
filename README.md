@@ -1,4 +1,4 @@
-# LHL-Capstone-Project: LMS Predictive Analytics
+# LHL-Capstone-Project: At-Risk Detection Using LMS Behaviour
 
 This project focuses on predicting student academic trajectories based on LMS behaviors by using machine learning techniques.
 
